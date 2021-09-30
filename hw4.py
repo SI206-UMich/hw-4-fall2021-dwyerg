@@ -234,11 +234,11 @@ def main():
     inventory2 = {"Peperoni Pizza":44, "Cheese Pizza":75, "Vegan Pizza":10}
 
     mahnoor = Customer("Mahnoor", 60)
-    mackenzie = Customer("Mackenzie", 60)
-    zach = Customer("Zach", 60)
+    mackenzie = Customer("Mackenzie", 20)
+    zach = Customer("Zach", 95)
 
-    pizza_stall = Stall("Pizza Palace", inventory2, 10)
-    sandwich_stall = Stall("Is it a Sandwich?", inventory1, 10)
+    pizza_stall = Stall("Pizza Palace", inventory2, 12)
+    sandwich_stall = Stall("Is it a Sandwich?", inventory1, 8)
 
     alexis = Cashier("Alexis", [pizza_stall, sandwich_stall])
     ebony = Cashier("Ebony", [sandwich_stall])
