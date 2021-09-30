@@ -1,3 +1,7 @@
+# Your name: Grace Dwyer
+# Your student id: 5633 7874
+# Your email: dwyerg@umich.edu
+# List who you have worked with on this homework: N/A
 
 import unittest
 
@@ -27,8 +31,9 @@ class Customer:
     
     # Submit_order takes a cashier, a stall and an amount as parameters, 
     # it deducts the amount from the customer’s wallet and calls the receive_payment method on the cashier object
-    def submit_order(self, cashier, stall, amount): 
-        pass
+    def submit_order(self, cashier, stall, amount):
+        self.wallet -= amount
+        cashier.receive_payment(stall, amount) 
 
     # The __str__ method prints the customer's information.    
     def __str__(self):
@@ -71,8 +76,31 @@ class Cashier:
 
 ## Complete the Stall class here following the instructions in HW_4_instructions_rubric
 class Stall:
+
+    def __init__(self, name, inventory, cost = 7, earnings = 0):
+        self.name = name
+        self.inventory = inventory
+        self.cost = cost
+        self.earnings = earnings
+
+    def process_order(self, name, quantity):
+        if self.has_item(name, quantity):
+            self.inventory[name] -= quantity
     
-    pass
+    def has_item(self, name, quantity):
+        return self.inventory[name] >= quantity
+
+    def stock_up(self, name, quantity):
+        if name in self.inventory.keys():
+            self.inventory[name] += quantity
+        else:
+            self.inventory[name] = quantity
+
+    def compute_cost(self, quantity):
+        return quantity*self.cost
+
+    def __str__(self):
+        return "Hello, we are " + self.name + ". This is the current menu " + list(self.inventory.keys()) + ". We charge $" + self.cost + " per item. We have $" + self.earnings + " in total."
 
 
 class TestAllMethods(unittest.TestCase):
@@ -105,7 +133,7 @@ class TestAllMethods(unittest.TestCase):
         self.assertEqual(len(self.c1.directory), 3) 
 
 	## Check to see whether constructors work
-    def test_truck_constructor(self):
+    def test_stall_constructor(self):
         self.assertEqual(self.s1.name, "The Grill Queen")
         self.assertEqual(self.s1.inventory, {"Burger":40, "Taco":50})
         self.assertEqual(self.s3.earnings, 0)
