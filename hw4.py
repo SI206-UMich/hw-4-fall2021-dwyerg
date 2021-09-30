@@ -4,6 +4,7 @@
 # List who you have worked with on this homework: N/A
 
 import unittest
+import random
 
 # The Customer class
 # The Customer class represents a customer who will order from the stalls.
@@ -18,7 +19,7 @@ class Customer:
         self.wallet += deposit
 
     # The customer orders the food and there could be different cases   
-    def validate_order(self, cashier, stall, item_name, quantity):
+    def validate_order(self, cashier, stall, item_name, quantity, customer = None):
         if not(cashier.has_stall(stall)):
             print("Sorry, we don't have that vendor stall. Please try a different one.")
         elif not(stall.has_item(item_name, quantity)):  
@@ -26,7 +27,7 @@ class Customer:
         elif self.wallet < stall.compute_cost(quantity): 
             print("Don't have enough money for that :( Please reload more money!")
         else:
-            bill = cashier.place_order(stall, item_name, quantity) 
+            bill = cashier.place_order(stall, item_name, quantity, customer) 
             self.submit_order(cashier, stall, bill) 
     
     # Submit_order takes a cashier, a stall and an amount as parameters, 
@@ -48,6 +49,7 @@ class Cashier:
     def __init__(self, name, directory =[]):
         self.name = name
         self.directory = directory[:] # make a copy of the directory
+        self.customer_count = 0
 
     # Whether the stall is in the cashier's directory
     def has_stall(self, stall):
@@ -65,7 +67,14 @@ class Cashier:
 	# The cashier pays the stall the cost.
 	# The stall processes the order
 	# Function returns cost of the order, using compute_cost method
-    def place_order(self, stall, item, quantity):
+    def place_order(self, stall, item, quantity, customer = None):
+        self.customer_count += 1
+        if self.customer_count == 10 and customer != None:
+            lucky_draw = random.randint(1,20)
+            print(lucky_draw)
+            if lucky_draw == 3:
+                customer.reload_money(10)
+            self.customer_count = 0
         stall.process_order(item, quantity)
         return stall.compute_cost(quantity) 
     
@@ -225,19 +234,19 @@ def main():
     inventory1 = {"Sandwich":32, "Burger":50, "Hotdog":64}
     inventory2 = {"Peperoni Pizza":44, "Cheese Pizza":75, "Vegan Pizza":10}
 
-    mahnoor = Customer("Mahnoor", 50)
-    mackenzie = Customer("Mackenzie", 20)
-    zach = Customer("Zach", 97)
+    mahnoor = Customer("Mahnoor", 60)
+    mackenzie = Customer("Mackenzie", 60)
+    zach = Customer("Zach", 60)
 
-    pizza_stall = Stall("Pizza Palace", inventory2, 12)
-    sandwich_stall = Stall("Is it a Sandwich?", inventory1, 8)
+    pizza_stall = Stall("Pizza Palace", inventory2, 10)
+    sandwich_stall = Stall("Is it a Sandwich?", inventory1, 10)
 
     alexis = Cashier("Alexis", [pizza_stall, sandwich_stall])
     ebony = Cashier("Ebony", [sandwich_stall])
 
-    #Try all cases in the validate_order function
-    #Below you need to have *each customer instance* try the four cases
-    #case 1: the cashier does not have the stall 
+    # Try all cases in the validate_order function
+    # Below you need to have *each customer instance* try the four cases
+    # case 1: the cashier does not have the stall 
     mahnoor.validate_order(ebony, pizza_stall, "Cheese Pizza", 4)
     mackenzie.validate_order(ebony, pizza_stall, "Cheese Pizza", 4)
     zach.validate_order(ebony, pizza_stall, "Cheese Pizza", 4)
@@ -255,7 +264,31 @@ def main():
     #case 4: the customer successfully places an order
     mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 2)
     mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 5) 
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 5)
+
+
+    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
+    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
+    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
+    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
+    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
+    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
+    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
+    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
+    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
+    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
+    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
+    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
+    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
+
+    print(mahnoor)
+    print(mackenzie)
+    print(zach)
 
 
 if __name__ == "__main__":
