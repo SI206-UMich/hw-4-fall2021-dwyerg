@@ -80,7 +80,6 @@ class Cashier:
     
     # string function.
     def __str__(self):
-
         return "Hello, this is the " + self.name + " cashier. We take preloaded market payment cards only. We have " + str(sum([len(category) for category in self.directory.values()])) + " vendors in the farmers' market."
 
 ## Complete the Stall class here following the instructions in HW_4_instructions_rubric
@@ -265,30 +264,6 @@ def main():
     mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 2)
     mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1)
     zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 5)
-
-
-    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
-    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
-    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
-    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
-    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
-    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
-    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
-    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
-    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
-    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
-    mahnoor.validate_order(alexis, pizza_stall, "Cheese Pizza", 1, mahnoor)
-    mackenzie.validate_order(ebony, sandwich_stall, "Burger", 1, mackenzie)
-    zach.validate_order(alexis, pizza_stall, "Vegan Pizza", 1, zach)
-
-    print(mahnoor)
-    print(mackenzie)
-    print(zach)
 
 
 if __name__ == "__main__":
